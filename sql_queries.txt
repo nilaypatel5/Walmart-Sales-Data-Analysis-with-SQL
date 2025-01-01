@@ -1,0 +1,56 @@
+1) SELECT Product_line, SUM(Total) AS total_sales
+   FROM WalmartSalesData
+   GROUP BY Product_line;
+
+2) SELECT Payment, COUNT(Invoice_ID) AS number_of_transactions
+   FROM WalmartSalesData
+   GROUP BY Payment;
+
+3) SELECT Gender, COUNT(DISTINCT Customer_type) AS number_of_customers
+   FROM WalmartSalesData
+   GROUP BY Gender;
+
+4) SELECT Product_line, 
+       SUM(Total) AS total_revenue, 
+       AVG([Gross margin percentage]) AS avg_margin_percentage
+   FROM WalmartSalesData
+   GROUP BY Product_line
+   HAVING SUM(Total) > 10000;
+
+5) SELECT Branch, MAX(gross_income) AS highest_gross_income
+   FROM WalmartSalesData
+   WHERE Date BETWEEN '2019-01-01' AND '2019-12-31'
+   GROUP BY Branch;
+
+6) SELECT Branch, SUM(Quantity) AS total_quantity_sold
+   FROM WalmartSalesData
+   GROUP BY Branch
+   HAVING SUM(Quantity) > (SELECT AVG(Quantity) FROM WalmartSalesData);
+
+7) SELECT TOP 5 Product_line, 
+       SUM(Total) AS total_revenue, 
+       AVG(Rating) AS avg_rating
+   FROM WalmartSalesData
+   GROUP BY Product_line
+   ORDER BY total_revenue DESC, avg_rating DESC;
+
+8) SELECT City, Gender, 
+       SUM(Total) AS total_sales, 
+       AVG(Rating) AS avg_rating
+   FROM WalmartSalesData
+   GROUP BY City, Gender
+   HAVING SUM(Total) > (SELECT AVG(Total) FROM WalmartSalesData);
+
+9) SELECT Product_line, City, 
+       SUM(Total) AS total_sales, 
+       SUM(gross_income) AS total_gross_income
+   FROM WalmartSalesData
+   GROUP BY Product_line, City
+   HAVING AVG(Rating) > 4;
+
+10) SELECT Gender, Payment, Product_line, 
+       SUM(Total) AS total_revenue, 
+       SUM(COGS) AS total_COGS, 
+       SUM(gross_income) AS total_gross_income
+    FROM WalmartSalesData
+    GROUP BY Gender, Payment, Product_line;
